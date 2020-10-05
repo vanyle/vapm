@@ -1,6 +1,6 @@
 # VAPM
 
-VAPM is a project manager for windows and linux.
+VAPM (vanyle's awesome project manager) is a project manager for windows and linux.
 Get VAPM using the python installer provided or just grab the `.exe` located in bin if you are on windows.
 VAPM is designed to handle C++ and Web projects but can be used for anything.
 
@@ -13,10 +13,9 @@ Don't use a Turing-complete sub-language to build your C++, just use simple YAML
 
 ## Installation / Getting Started
 
-To use vapm, just decompress the zip file, and add its location to your PATH. (Maybe lookup how to add a directory to your path if you need to)
-I'm assuming you are familiar with the terminal on windows (cmd / powershell). All interactions / tasks with vapm happen through this terminal.
+To use vapm, just run the installer with python 3. I would also recommand adding `vapm/bin` to your PATH.
+Follow the instructions displayed on the screen to make vapm work. It will walk you through it's installation.
 
-To use vapm to it's fullest potentiel, I recommend also having Python installed and adding `vapm/mingw64/bin` to your path
 Download: https://www.python.org/downloads/
 
 Also installing [gdbgui](https://www.gdbgui.com/) (install with `pip install gdbgui`) can help with debugging. (to run debugging vapm tasks)
