@@ -1,0 +1,71 @@
+# This is an example vamp.yaml file.
+# It will not actually build vapm. Use the python installer provided instead.
+
+# General Information
+name: vapm
+author: vanyle
+version: 1.0
+tasks:
+
+
+# Release
+  release:
+    type: build
+    timer: true
+    source_path: src
+    output_path: build # contains object / pdb files
+    output_file: bin/vapm_release.exe
+    linker_arguments: [ @include "libraries.yaml" , -static]
+    arguments: 
+      - -fdiagnostics-color
+      - -Wall
+      - -D NDEBUG # disable assertions
+      - -Os
+      - -Isrc
+      - -isystemlib # don't report errors on these libraries
+      - -Wno-write-strings
+
+# Debug
+  debug:
+    copy: release
+    output_file: bin/vapm_debug.exe
+    arguments:
+      - -fdiagnostics-color
+      - -Wall
+      - -O0
+      - -g # add debugging data
+      - -Isrc
+      - -isystemlib
+      - -Wno-write-strings
+
+# Clean
+  clean:
+    type: command
+    commands:
+      - del /q ".\build\*"
+      - FOR /D %p IN (".\build\*.*") DO rmdir "%p" /s /q
+
+# Debug
+  debugger:
+    type: task
+    tasks:
+      - clean
+      - debug
+      - start_debugger
+
+  start_debugger:
+    type: command
+    commands:
+      - "gdbgui --args ./bin/vapm_debug.exe task release"
+
+# Make documentation
+  doc:
+    type: script
+    name: doc.py
+    arg: src # give src folder to auto doc script
+  
+  open_doc:
+    type: command
+    commands:
+      - vapm task doc
+      - start brave ./doc/index.html

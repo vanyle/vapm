@@ -1,0 +1,44 @@
+name: myProject
+author: me
+version: 0.1
+tasks:
+  release:
+    type: build
+    timer: true
+    source_path: src
+    output_path: build
+    output_file: executable/project.exe
+    linker_arguments: [ @include "libraries.yaml" , -static ,-mwindows] # no console showing when application is opened, use static linking when possible
+    arguments: 
+      - -fdiagnostics-color
+      - -Wall
+      - -D NDEBUG # disable assertions
+      - -Os
+      - -Isrc
+      - -Iinclude
+  debug:
+    copy: release
+    output_file: executable/project_debug.exe
+    linker_arguments: [ @include "libraries.yaml" , -static]
+    arguments:
+      - -fdiagnostics-color
+      - -Wall
+      - -O0
+      - -g # add debugging data
+      - -Isrc
+      - -Iinclude
+  run_debug:
+    type: command
+    commands:
+      - cd executable & project_debug.exe
+
+  run:
+    type: command
+    commands:
+      - cd executable & project.exe
+
+  clean:
+    type: command
+    commands:
+      - del /q ".\build\*"
+      - FOR /D %p IN (".\build\*.*") DO rmdir "%p" /s /q
