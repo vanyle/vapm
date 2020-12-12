@@ -1,6 +1,6 @@
 # VAPM
 
-VAPM (vanyle's awesome project manager) is a project manager for windows and linux.
+VAPM (vanyle's awesome project manager) is a project manager for Windows and Linux.
 Get VAPM using the python installer provided or just grab the `.exe` located in bin if you are on windows.
 VAPM is designed to handle C++ and Web projects but can be used for anything.
 
@@ -13,12 +13,13 @@ Don't use a Turing-complete sub-language to build your C++, just use simple YAML
 
 ## Installation / Getting Started
 
-To use vapm, just run the installer with python 3. I would also recommand adding `vapm/bin` to your PATH.
+To use vapm, just run the installer with python 3. I would also recommend adding `vapm/bin` to your PATH.
 Follow the instructions displayed on the screen to make vapm work. It will walk you through it's installation.
 
-Download: https://www.python.org/downloads/
+Download and install python from: https://www.python.org/downloads/ (version 3)
 
 Also installing [gdbgui](https://www.gdbgui.com/) (install with `pip install gdbgui`) can help with debugging. (to run debugging vapm tasks)
+This is not mandatory to use vapm, it's just recommended.
 
 VAPM uses YAML for it's files. YAML is quite to learn and intuitive to use but if you've never seen to before, you might want quickly glance through this:
 https://learnxinyminutes.com/docs/yaml/
@@ -187,6 +188,28 @@ tasks:
 vapm will replace the `@include "filename"` with the content of the `filename` file (which should be located in the same directory as the vapm file.)
 This is useful for custom scripts that can dynamically edit the libraries for your project without editing the `vapm.yaml` file.
 
+### Building a C++ library
+
+An example of a `vapm.yaml` file to compile a library.
+
+```yaml
+tasks:
+  default: 
+    type: build
+    source_path: src
+    output_path: build
+    linker: ar rcs # use a custom linker to make a library instead of g++
+    output_file: executable/libproject.a
+    linker_arguments: []
+    arguments:
+      - -fdiagnostics-color
+      - -Wall
+      - -Os
+      - -Isrc
+      - -Iinclude
+```
+
+
 ### Using python scripts
 
 ```yaml
@@ -266,12 +289,15 @@ Inside the lib folder, every library should be seperated inside its own folder a
 
 ### Source (src)
 A project should contain all its code inside a `src` directory with sub-folders inside it if more organization
-is needed for bigger projects. This directory should not contain any asset and be trackable by a versionning program.
+is needed for bigger projects. This directory should not contain any assets and be trackable by a versionning program.
+
+The `src` directory also should contain your tests. You can put them inside `src/test` for example and ignore the `test` directory
+when building the main program.
 
 ### Builds (executable)
 A project should contain all the releases ie the thing that can be shipped inside the `executable` directory. This includes the assets
 of the program (image, source, everything). Debug and release build executable should be putted here.
-If building the project requires to produce intermediate code representation / file, these should be located inside `build`. This folder
+If building the project requires to produce intermediate code representation / file, these should be located inside `build`. `executable`
 should also contain any debug file like `.pdb` files. The build system should only contain temporary auto-generated files because
 its content should be able to be removed to do a clean build
 
@@ -332,27 +358,3 @@ Vector::add(){
 
 
 ```
-
-## Default cpp libraries
-
-These libraries have mainly been chosen to do game developpement (glfw or lua for example)
-but also contain libraries useful for any kind of project (qt or sqlite3)
-
-- GLFW (window management)
-- GLEW (opengl bindingw)
-- ZLIB (data compression/decompression)
-- SNDFILE (sound decoding)
-- portaudio (sound playing)
-- SDL2 (game stuff)
-- RYML (json parsing)
-- sfml (game stuff)
-- violet (game engine)
-- qt5 (gui)
-- opencv (image recognition)
-- lua (scripting language)
-- imgui (gui)
-- freetype (font rendering)
-- assimp (3d model import)
-- ... (many other)
-
-Be careful, some of these libraries cannot be used in proprietary project without paying a license

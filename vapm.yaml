@@ -17,6 +17,7 @@ tasks:
     output_file: bin/vapm_release.exe
     linker_arguments: [ @include "libraries.yaml" , -static]
     arguments: 
+      - -Iinclude
       - -fdiagnostics-color
       - -Wall
       - -D NDEBUG # disable assertions
