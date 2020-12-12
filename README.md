@@ -81,9 +81,9 @@ tasks:
         output_path: build
         output_file: a.exe
         linker_arguments: # Arguments given to the linker
-        	- -Llibs
-        	#- -lgdi32 # needed for most gui application	
-         	# - -lmylibrary
+            - -Llibs
+            #- -lgdi32 # needed for most gui application    
+            # - -lmylibrary
             # etc...
         ignore: [] # Directories / Files inside src to not build
         arguments: # Arguments given to the compiler
@@ -214,10 +214,10 @@ tasks:
 
 ```yaml
 tasks:
-	script_task:
-		type: script
-		name: print_arg.py # The name of the python file containing the script
-		arg: hello
+    script_task:
+        type: script
+        name: print_arg.py # The name of the python file containing the script
+        arg: hello
 
 ```
 
@@ -329,8 +329,8 @@ Write good documentation, don't just restate the name of the function / paramete
 */
 
 class Vector {
-	float x;
-	float y;
+    float x;
+    float y;
 }
 
 // a documentation comment for the add method
@@ -345,9 +345,9 @@ fill appear below
 #include "vector.h"
 
 int main(){
-	Vector v;
-	v.add();
-	return 0;
+    Vector v;
+    v.add();
+    return 0;
 }
 @endcode
 */
